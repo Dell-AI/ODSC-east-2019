@@ -66,8 +66,8 @@ RUN wget https://dist.apache.org/repos/dist/release/spark/spark-${SPARK_VERSION}
     mv spark-${SPARK_VERSION}-bin-hadoop2.7 spark-${SPARK_VERSION} && \
     rm spark-${SPARK_VERSION}-bin-hadoop2.7.tgz
 
-ADD ./download-analytics-zoo.sh /opt/work
-ADD ./start-notebook.sh /opt/work
+ADD ./docker/download-analytics-zoo.sh /opt/work
+ADD ./docker/start-notebook.sh /opt/work
 RUN chmod a+x download-analytics-zoo.sh && \
     chmod a+x start-notebook.sh
 RUN ./download-analytics-zoo.sh
