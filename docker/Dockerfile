@@ -72,4 +72,6 @@ RUN chmod a+x download-analytics-zoo.sh && \
     chmod a+x start-notebook.sh
 RUN ./download-analytics-zoo.sh
 
+RUN git clone https://github.com/Dell-AI/ODSC-east-2019.git
+
 CMD ["/opt/work/start-notebook.sh"]
