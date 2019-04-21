@@ -26,6 +26,8 @@ if [[ $ANALYTICS_ZOO_VERSION == *"SNAPSHOT"* ]]; then
   wget https://oss.sonatype.org/content/groups/public/com/intel/analytics/zoo/analytics-zoo-bigdl_$BIGDL_VERSION-spark_$SPARK_VERSION/$ANALYTICS_ZOO_VERSION/analytics-zoo-bigdl_$BIGDL_VERSION-spark_$SPARK_VERSION-$NIGHTLY_VERSION-dist-all.zip
   unzip analytics-zoo-bigdl_$BIGDL_VERSION-spark_$SPARK_VERSION-$NIGHTLY_VERSION-dist-all.zip -d $ANALYTICS_ZOO_HOME
 else
-  wget https://repo1.maven.org/maven2/com/intel/analytics/zoo/analytics-zoo-bigdl_$BIGDL_VERSION-spark_$SPARK_VERSION/$ANALYTICS_ZOO_VERSION/analytics-zoo-bigdl_$BIGDL_VERSION-spark_$SPARK_VERSION-$ANALYTICS_ZOO_VERSION-dist-all.zip
-  unzip analytics-zoo-bigdl_$BIGDL_VERSION-spark_$SPARK_VERSION-$ANALYTICS_ZOO_VERSION-dist-all.zip -d $ANALYTICS_ZOO_HOME
+#  wget https://repo1.maven.org/maven2/com/intel/analytics/zoo/analytics-zoo-bigdl_$BIGDL_VERSION-spark_$SPARK_VERSION/$ANALYTICS_ZOO_VERSION/analytics-zoo-bigdl_$BIGDL_VERSION-spark_$SPARK_VERSION-$ANALYTICS_ZOO_VERSION-dist-all.zip
+#  unzip analytics-zoo-bigdl_$BIGDL_VERSION-spark_$SPARK_VERSION-$ANALYTICS_ZOO_VERSION-dist-all.zip -d $ANALYTICS_ZOO_HOME
+  wget https://repo1.maven.org/maven2/com/intel/analytics/zoo/analytics-zoo-bigdl_$BIGDL_VERSION-spark_2.4.0/$ANALYTICS_ZOO_VERSION/analytics-zoo-bigdl_$BIGDL_VERSION-spark_2.4.0-$ANALYTICS_ZOO_VERSION-dist-all.zip
+  unzip analytics-zoo-bigdl_$BIGDL_VERSION-spark_2.4.0-$ANALYTICS_ZOO_VERSION-dist-all.zip -d $ANALYTICS_ZOO_HOME
 fi
