@@ -22,15 +22,14 @@ set -x
 ANALYTICS_ZOO_TUTORIALS_HOME=${ANALYTICS_ZOO_HOME}/apps
 ANALYTICS_ZOO_VERSION=${ANALYTICS_ZOO_VERSION_ENV}
 BIGDL_VERSION=${BIGDL_VERSION_ENV}
-#SPARK_VERSION=${SPARK_VERSION_ENV}
-SPARK_VERSION="2.4.0"
+SPARK_VERSION=${SPARK_VERSION_ENV}
 SPARK_MAJOR_VERSION=${SPARK_VERSION_ENV%%.[0-9]}
 
 export PYSPARK_DRIVER_PYTHON=jupyter
 export PYSPARK_DRIVER_PYTHON_OPTS="notebook --notebook-dir=$ANALYTICS_ZOO_TUTORIALS_HOME --ip=0.0.0.0 --port=$NotebookPort --no-browser --NotebookApp.token=$NotebookToken --allow-root"
 
 ${SPARK_HOME}/bin/pyspark \
-  --master local[*] \
+  --master local[${RUNTIME_EXECUTOR_CORES_ENV}] \
   --driver-cores ${RUNTIME_DRIVER_CORES_ENV} \
   --driver-memory ${RUNTIME_DRIVER_MEMORY_ENV} \
   --executor-cores ${RUNTIME_EXECUTOR_CORES_ENV} \
