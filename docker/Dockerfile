@@ -71,6 +71,6 @@ RUN /opt/work/download-analytics-zoo.sh
 
 RUN git clone https://github.com/Dell-AI/ODSC-east-2019.git
 
-RUN wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1lTgYjUjFyP5_ebW-gIDufk5BFZeQS-K7' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1lTgYjUjFyP5_ebW-gIDufk5BFZeQS-K7" -O dogs-vs-cats.zip && rm -rf /tmp/cookies.txt
+RUN wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1lTgYjUjFyP5_ebW-gIDufk5BFZeQS-K7' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1lTgYjUjFyP5_ebW-gIDufk5BFZeQS-K7" -O /opt/work/ODSC-east-2019/datasets/cats-dogs/dogs-vs-cats.zip && rm -rf /tmp/cookies.txt
 
 CMD ["/opt/work/start-notebook.sh"]

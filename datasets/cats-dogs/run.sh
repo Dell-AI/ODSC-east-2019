@@ -1,6 +1,8 @@
 #!/bin/bash
 
-unzip *.zip
+unzip dogs-vs-cats.zip
+unzip train.zip
+unzip test1.zip
 mkdir -p demo/dogs
 mkdir -p demo/cats
 cp train/cat.7* demo/cats
