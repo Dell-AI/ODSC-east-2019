@@ -11,3 +11,20 @@ We will release a 1.0 container by April 27th.
 1. Ensure that you have docker installed. Refer to [docker user guide](https://docs.docker.com/install/) for instructions to install docker. For Linux based systems, you can simply run the command ```sudo apt-get install docker.io```
 
 2. Download the docker container using the command ```docker pull dellai/odsc-east-2019:latest```
+
+3. Run the following command to start the container ```sudo docker run -it --rm -p 12345:12345 \
+    -e NotebookPort=12345 \
+    -e NotebookToken="your-token" \
+    dell-ai\odsc-east-2019:default bash```
+
+4. The container will start and provide a bash prompt
+
+5. Run the following command to extract the datasets
+```cd ODSC-east-2019/datasets
+./extract.sh
+cd```
+
+6. Run the following command to start Jupyter notebook
+```./start-notebook.sh```
+
+7. You can now connect to the Jupyter notebook by fooling the instructions.
