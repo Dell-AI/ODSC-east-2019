@@ -29,4 +29,4 @@ cd
 6. Run the following command to start Jupyter notebook
 ```./start-notebook.sh```
 
-7. You can now connect to the Jupyter notebook by fooling the instructions.
+7. You can now connect to the Jupyter notebook by following the instructions.
