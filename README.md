@@ -23,10 +23,9 @@ We will release a 1.0 container by April 27th.
 ```
 cd ODSC-east-2019/datasets
 ./extract.sh
-cd
 ```
 
 6. Run the following command to start Jupyter notebook
-```./start-notebook.sh```
+```/opt/work/start-notebook.sh```
 
 7. You can now connect to the Jupyter notebook by following the instructions.
