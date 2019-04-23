@@ -20,9 +20,11 @@ We will release a 1.0 container by April 27th.
 4. The container will start and provide a bash prompt
 
 5. Run the following command to extract the datasets
-```cd ODSC-east-2019/datasets
+```
+cd ODSC-east-2019/datasets
 ./extract.sh
-cd```
+cd
+```
 
 6. Run the following command to start Jupyter notebook
 ```./start-notebook.sh```
