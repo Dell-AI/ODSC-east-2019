@@ -52,9 +52,7 @@
     "from tensorflow.keras.layers import *\n",
     "\n",
     "from bigdl.dataset import mnist\n",
-    "from bigdl.dataset.transformer import *\n",
-    "\n",
-    "import mnist_utilities_workshop"
+    "from bigdl.dataset.transformer import *"
    ]
   },
   {
@@ -66,7 +64,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 2,
+   "execution_count": null,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -89,13 +87,13 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 3,
+   "execution_count": null,
    "metadata": {},
    "outputs": [],
    "source": [
     "# get data, pre-process and create TFDataset\n",
     "def get_data_rdd(dataset):\n",
-    "    (images_data, labels_data) = mnist_utilities_workshop.ws_read_data_sets(\"/home/bala/odsc/ODSC-east-2019/datasets/mnist/\", dataset)\n",
+    "    (images_data, labels_data) = mnist.read_data_sets(\"/tmp/mnist\", dataset)\n",
     "    # image_rdd = sc.parallelize(images_data[:data_num])\n",
     "    image_rdd = sc.parallelize(images_data)\n",
     "    # labels_rdd = sc.parallelize(labels_data[:data_num])\n",
@@ -115,20 +113,9 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 4,
+   "execution_count": null,
    "metadata": {},
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "('Extracting', '/home/bala/odsc/ODSC-east-2019/datasets/mnist/train-images-idx3-ubyte.gz')\n",
-      "('Extracting', '/home/bala/odsc/ODSC-east-2019/datasets/mnist/train-labels-idx1-ubyte.gz')\n",
-      "('Extracting', '/home/bala/odsc/ODSC-east-2019/datasets/mnist/t10k-images-idx3-ubyte.gz')\n",
-      "('Extracting', '/home/bala/odsc/ODSC-east-2019/datasets/mnist/t10k-labels-idx1-ubyte.gz')\n"
-     ]
-    }
-   ],
+   "outputs": [],
    "source": [
     "training_rdd = get_data_rdd(\"train\")\n",
     "testing_rdd = get_data_rdd(\"test\")"
@@ -143,7 +130,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 5,
+   "execution_count": null,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -151,8 +138,18 @@
     "batch_size = 512\n",
     "\n",
     "# Images are 28 by 28 pixels with one color channel for black and white; labels have no dimmensions because they are integers\n",
-    "dataset = \n",
-    "pred_dataset = "
+    "dataset = TFDataset.from_rdd(training_rdd,\n",
+    "                             names=[\"features\", \"labels\"],\n",
+    "                             shapes=[[28, 28, 1], []], \n",
+    "                             types=[tf.float32, tf.int32],\n",
+    "                             batch_size=batch_size,\n",
+    "                             val_rdd=testing_rdd\n",
+    "                             )\n",
+    "pred_dataset = TFDataset.from_rdd(training_rdd,\n",
+    "                                  names=[\"features\", \"labels\"],\n",
+    "                                  shapes=[[28, 28, 1], []], \n",
+    "                                  types=[tf.float32, tf.int32],\n",
+    "                                  batch_per_thread=1)"
    ]
   },
   {
@@ -171,110 +168,93 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 6,
+   "execution_count": null,
    "metadata": {},
    "outputs": [],
    "source": [
-    "data = \n",
-    "x = # Add and flattend data\n",
-    "x = # new layer\n",
-    "x = # new layer. What can be the activation function?\n",
-    "predictions = # new output layer. What should be the activation function?"
+    "data = Input(shape=[28, 28, 1]) # Must match the dimmensions of the images specified in the TFDataset\n",
+    "# x = Convolution2D(6, 5, 5, activation='tanh', name='conv1_5x5')(data)\n",
+    "# x = MaxPooling2D()(x)\n",
+    "x = Flatten()(data)\n",
+    "x = Dense(64, activation='relu')(x) # The number of dense units can be adjusted to attempt to improve the model.\n",
+    "x = Dense(64, activation='relu')(x)\n",
+    " # The number of dense units in the predictions (output) layer should match the number of classes\n",
+    "predictions = Dense(10, activation='softmax')(x)"
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## Initialize the model and the optimizer."
+    "* Initialize the model and the optimizer."
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 7,
+   "execution_count": null,
    "metadata": {},
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "creating: createRMSprop\n",
-      "creating: createClassNLLCriterion\n",
-      "creating: createLoss\n",
-      "creating: createZooKerasAccuracy\n",
-      "INFO:tensorflow:Froze 6 variables.\n",
-      "INFO:tensorflow:Converted 6 variables to const ops.\n",
-      "creating: createTFTrainingHelper\n",
-      "creating: createTFValidationMethod\n",
-      "creating: createTFValidationMethod\n",
-      "creating: createIdentityCriterion\n",
-      "creating: createMaxEpoch\n",
-      "creating: createDistriOptimizer\n",
-      "creating: createEveryEpoch\n"
-     ]
-    }
-   ],
+   "outputs": [],
    "source": [
-    "model = # Define model\n",
+    "model = Model(inputs=data, outputs=predictions)\n",
     "\n",
-    "model.compile()\n",
+    "model.compile(optimizer='rmsprop',\n",
+    "              loss='sparse_categorical_crossentropy',\n",
+    "              metrics=['accuracy'])\n",
     "\n",
-    "optimizer = # Define optimizer"
+    "optimizer = TFOptimizer.from_keras(keras_model=model, dataset=dataset)"
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## Set location for model training summary output.\n",
-    "## Train the model."
+    "* Set location for model training summary output.\n",
+    "* Train the model."
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 8,
+   "execution_count": null,
    "metadata": {},
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "creating: createTrainSummary\n",
-      "creating: createValidationSummary\n",
-      "creating: createMaxEpoch\n"
-     ]
-    }
-   ],
+   "outputs": [],
    "source": [
     "optimizer.set_train_summary(TrainSummary(\"/tmp/mnist_log\", \"mnist\"))\n",
     "optimizer.set_val_summary(ValidationSummary(\"/tmp/mnist_log\", \"mnist\"))\n",
-    "max_epoch = 15\n",
-    "# train the model"
+    "# kick off training\n",
+    "max_epoch = 5\n",
+    "optimizer.optimize(end_trigger=MaxEpoch(max_epoch))"
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## Save the weights so it can be read later for inference"
+    "* Create a TFPredictor object based on the trained model"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 9,
+   "execution_count": null,
    "metadata": {},
    "outputs": [],
    "source": [
-    "# save the model"
+    "model_predictor = TFPredictor.from_keras(model, pred_dataset)"
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## Run Tensorboard\n",
-    "\n",
-    "tensorboard --logdir=/tmp/mnist_log/mnist/train --port 8082"
+    "* Predict the classes of the data in the testing data (pred_dataset)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "testing_rdd_preds = model_predictor.predict()"
    ]
   }
  ],
