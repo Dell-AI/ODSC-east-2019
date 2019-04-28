@@ -4,20 +4,18 @@ This repository is for  ODSC East 2019 workshop **Introduction To Building A Dis
 
 This repository and the container includes libraries required for the workshop as well as notebooks that will used as exercises.
 
-We will release a 1.0 container by April 27th.
-
 ## Instructions for downloading the container
 
 1. Ensure that you have docker installed. Refer to [docker user guide](https://docs.docker.com/install/) for instructions to install docker. For Linux based systems, you can simply run the command ```sudo apt-get install docker.io```
 
-2. Download the docker container using the command ```docker pull dellai/odsc-east-2019:latest```
+2. Download the docker container using the command ```docker pull dellai/odsc-east-2019:1.0```
 
 3. Run the following command to start the container 
 ```
 sudo docker run -it --rm -p 12345:12345 -p 12346:12346
         -e NotebookPort=12345
         -e NotebookToken="your-token"
-        dellai\odsc-east-2019:default bash
+        dellai\odsc-east-2019:1.0 bash
 ```
 
 4. The container will start and provide a bash prompt
