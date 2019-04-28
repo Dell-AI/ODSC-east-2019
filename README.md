@@ -12,10 +12,13 @@ We will release a 1.0 container by April 27th.
 
 2. Download the docker container using the command ```docker pull dellai/odsc-east-2019:latest```
 
-3. Run the following command to start the container ```sudo docker run -it --rm -p 12345:12345
+3. Run the following command to start the container 
+```
+sudo docker run -it --rm -p 12345:12345 -p 12346:12346
         -e NotebookPort=12345
         -e NotebookToken="your-token"
-        dellai\odsc-east-2019:default bash```
+        dellai\odsc-east-2019:default bash
+```
 
 4. The container will start and provide a bash prompt
 
