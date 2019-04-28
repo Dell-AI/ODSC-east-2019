@@ -15,7 +15,7 @@ We will release a 1.0 container by April 27th.
 3. Run the following command to start the container ```sudo docker run -it --rm -p 12345:12345
         -e NotebookPort=12345
         -e NotebookToken="your-token"
-        dell-ai\odsc-east-2019:default bash```
+        dellai\odsc-east-2019:default bash```
 
 4. The container will start and provide a bash prompt
 
