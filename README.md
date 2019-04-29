@@ -15,7 +15,7 @@ This repository and the container includes libraries required for the workshop a
 sudo docker run -it --rm -p 12345:12345 -p 12346:12346
         -e NotebookPort=12345
         -e NotebookToken="your-token"
-        dellai\odsc-east-2019:1.1 bash
+        dellai/odsc-east-2019:1.1 bash
 ```
 
 4. The container will start and provide a bash prompt
